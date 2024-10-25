@@ -310,9 +310,9 @@ window.addEventListener('resize', onWindowResize, false);
 function onWindowResize(){
   canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight;
-    gl.viewport(0, 0, canvas.width, canvas.height);
-  gl.uniform1f(widthHandle, window.innerWidth);
-  gl.uniform1f(heightHandle, window.innerHeight);
+  gl.viewport(0, 0, canvas.width, canvas.height);
+  gl.uniform1f(widthHandle, canvas.width);   // Use canvas.width instead of window.innerWidth
+  gl.uniform1f(heightHandle, canvas.height); // Use canvas.height instead of window.innerHeight
 }
 
 
