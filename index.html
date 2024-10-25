@@ -285,8 +285,12 @@ void main(){
     vec2 pos = centre - uv;
     pos.y /= widthHeightRatio;
     //Shift upwards to centre heart
-    pos.y += 0.02;
-    float scale = 0.000015 * height;
+    uniform float yOffset;
+uniform float heartScale;
+
+pos.y += yOffset;  // Use yOffset for vertical adjustment
+float scale = heartScale;  // Use heartScale for heart size scaling
+
     
     float t = time;
     
@@ -427,6 +431,29 @@ function draw(){
 
   requestAnimationFrame(draw);
 }
+
+var yOffsetHandle = getUniformLocation(program, 'yOffset');
+var heartScaleHandle = getUniformLocation(program, 'heartScale');
+
+// Update the position and scale based on screen size
+function updateHeartPositionAndSize() {
+  if (window.innerWidth <= 600) {
+    gl.uniform1f(yOffsetHandle, 0.1);  // Move it upwards on small screens
+    gl.uniform1f(heartScaleHandle, 0.00005 * window.innerHeight);  // Make the heart bigger
+  } else {
+    gl.uniform1f(yOffsetHandle, 0.02);  // Default positioning
+    gl.uniform1f(heartScaleHandle, 0.000015 * window.innerHeight);  // Default size
+  }
+}
+
+// Call this function when resizing
+window.addEventListener('resize', function() {
+  updateHeartPositionAndSize();
+});
+
+// Initial setup
+updateHeartPositionAndSize();
+
 
 draw();
 
