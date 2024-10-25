@@ -27,7 +27,7 @@
   }
 }
 
-      *,
+    *,
 *::before,
 *::after {
     box-sizing: border-box;
@@ -40,10 +40,6 @@ body {
     display: grid;
     place-items: center;
     background: #000;
-     background-color: #111;    
- margin: 0;  
- overflow: hidden;  
- background-repeat: no-repeat;  
 }
 
 .rainbow_btn {
@@ -122,13 +118,6 @@ body {
         background-position: 0 0;
     }
 }
-
-.loves, .rainbow_btn {
-  align-items: center;
-  text-align: center;
-  padding: 10px;
-  margin: 10px;
-}
     </style>
 </head>
 <body>
@@ -165,14 +154,14 @@ var time = 0.0;
 
 //************** Shader sources **************
 
-var vertexSource = 
+var vertexSource = `
 attribute vec2 position;
 void main() {
     gl_Position = vec4(position, 0.0, 1.0);
 }
-;
+`;
 
-var fragmentSource = 
+var fragmentSource = `
 precision highp float;
 
 uniform float width;
@@ -319,7 +308,7 @@ void main(){
     //Output to screen
  	gl_FragColor = vec4(col,1.0);
 }
-;
+`;
 
 //************** Utility functions **************
 
@@ -328,11 +317,10 @@ window.addEventListener('resize', onWindowResize, false);
 function onWindowResize(){
   canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight;
-  gl.viewport(0, 0, canvas.width, canvas.height);
-  gl.uniform1f(widthHandle, canvas.width);   // Use canvas.width instead of window.innerWidth
-  gl.uniform1f(heightHandle, canvas.height); // Use canvas.height instead of window.innerHeight
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  gl.uniform1f(widthHandle, window.innerWidth);
+  gl.uniform1f(heightHandle, window.innerHeight);
 }
-
 
 
 //Compile shader and combine with source
