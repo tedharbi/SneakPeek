@@ -314,13 +314,22 @@ void main(){
 
 window.addEventListener('resize', onWindowResize, false);
 
-function onWindowResize(){
-  canvas.width  = window.innerWidth;
+function onWindowResize() {
+  canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-    gl.viewport(0, 0, canvas.width, canvas.height);
+  gl.viewport(0, 0, canvas.width, canvas.height);
+  
+  // Update uniforms after resizing
   gl.uniform1f(widthHandle, window.innerWidth);
   gl.uniform1f(heightHandle, window.innerHeight);
 }
+
+// Add click event listeners for buttons
+document.querySelectorAll('.rainbow_btn').forEach(button => {
+    button.addEventListener('click', () => {
+        alert(button.textContent); // Example action
+    });
+});
 
 
 //Compile shader and combine with source
